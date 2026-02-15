@@ -4,14 +4,17 @@ import { AuthUserContext } from "../../context/AuthContextApi";
 import { LiaDoorOpenSolid } from "react-icons/lia";
 import { BackendUserContext } from "../../context/FetchUserContext";
 
-const Menu = () => {
+const Menu = ({ setIsMenuOpen }) => {
   let { authUser, logout } = useContext(AuthUserContext);
   console.log(authUser);
-  
-  let {userData}=useContext(BackendUserContext)
-  let role =userData?.role;
+
+  let { userData } = useContext(BackendUserContext)
+  let role = userData?.role;
   console.log(role);
-  
+
+  const handleLinkClick = () => {
+    if (setIsMenuOpen) setIsMenuOpen(false);
+  };
 
   //this is for unknown user
   let AnonymousUser = () => {
@@ -20,9 +23,9 @@ const Menu = () => {
         <li>
           <NavLink
             to={"/auth/login"}
+            onClick={handleLinkClick}
             className={({ isActive }) =>
-              `${
-                isActive ? "bg-[#570a8e]" : ""
+              `${isActive ? "bg-[#570a8e]" : ""
               } px-4 py-2 font-semibold text-[#FFFF]  focus:ring-[#570a8e] hover:bg-[#570a8e] hover:scale-105 transition-transform duration-300 rounded-md cursor-pointer text-lg flex gap-2 items-center`
             }
           >
@@ -32,9 +35,9 @@ const Menu = () => {
         <li>
           <NavLink
             to={"/auth/register"}
+            onClick={handleLinkClick}
             className={({ isActive }) =>
-              `${
-                isActive ? "bg-[#570a8e]" : ""
+              `${isActive ? "bg-[#570a8e]" : ""
               } px-4 py-2 font-semibold text-[#FFFF]  focus:ring-[#570a8e] hover:bg-[#570a8e] hover:scale-105 transition-transform duration-300 rounded-md cursor-pointer text-lg flex gap-2 items-center`
             }
           >
@@ -51,7 +54,11 @@ const Menu = () => {
       <>
         {role === "admin" && (
           <li>
-            <NavLink to={"/admin"} className="border border-transparent px-4 py-2 font-semibold rounded-md  focus:ring-[#570a8e] hover:bg-[#570a8e] hover:scale-105 transition-transform duration-300 cursor-pointer flex justify-evenly text-lg text-white">
+            <NavLink
+              to={"/admin"}
+              onClick={handleLinkClick}
+              className="border border-transparent px-4 py-2 font-semibold rounded-md  focus:ring-[#570a8e] hover:bg-[#570a8e] hover:scale-105 transition-transform duration-300 cursor-pointer flex justify-evenly text-lg text-white"
+            >
               Admin
             </NavLink>
           </li>
@@ -59,9 +66,9 @@ const Menu = () => {
         <li>
           <NavLink
             to={"/user/profile"}
+            onClick={handleLinkClick}
             className={({ isActive }) =>
-              `${
-                isActive ? "bg-[#570a8e]" : ""
+              `${isActive ? "bg-[#570a8e]" : ""
               } px-4 py-2 font-semibold text-[#FFFF]  focus:ring-[#570a8e] hover:bg-[#570a8e] hover:scale-105 transition-transform duration-300 rounded-md cursor-pointer text-lg flex gap-2 items-center`
             }
           >
@@ -72,12 +79,15 @@ const Menu = () => {
               className="w-[25px] h-[25px] rounded-full"
 
             />
-            
+
           </NavLink>
         </li>
         <li>
           <button
-            onClick={() => logout()}
+            onClick={() => {
+              logout();
+              handleLinkClick();
+            }}
             className={`flex px-4 py-2 font-semibold text-[#ff2f00] focus:ring-[#570a8e] hover:bg-red-700 hover:text-white hover:scale-105 transition-transform duration-300 rounded-md cursor-pointer text-lg`}
           >
             <span>Logout</span>
@@ -90,14 +100,14 @@ const Menu = () => {
     );
   };
   return (
-    <aside className="basis-[35%] h-[70px]">
-      <ul className="w-full h-full flex justify-evenly items-center">
+    <aside className="h-full">
+      <ul className="w-full h-full flex flex-col md:flex-row justify-evenly items-center gap-4 md:gap-0">
         <li>
           <NavLink
             to={"/"}
+            onClick={handleLinkClick}
             className={({ isActive }) =>
-              `${
-                isActive ? "bg-[#570a8e]" : ""
+              `${isActive ? "bg-[#570a8e]" : ""
               } px-4 py-2 font-semibold text-[#FFFF]  focus:ring-[#570a8e] hover:bg-[#570a8e] hover:scale-105 transition-transform duration-300 rounded-md cursor-pointer text-lg flex gap-2 items-center`
             }
           >
