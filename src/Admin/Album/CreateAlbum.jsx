@@ -109,12 +109,12 @@ const CreateAlbum = () => {
         //! Convert album thumbnail (image) into binary data
         let albumData = new FormData();
         albumData.append("file", albumThumbnail);
-        albumData.append("upload_preset", "music_albums"); //? provide your upload preset name here
-        albumData.append("cloud_name", "dcoajlkmk");  //? provide your cloud name here instead of dcoajlkmk
+        albumData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET_ALBUMS);
+        albumData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
 
         //! Upload album thumbnail to the cloudinary
         let response = await fetch(
-          "https://api.cloudinary.com/v1_1/dcoajlkmk/upload", //? Replace your cloud name here instead of dcoajlkmk
+          `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/upload`,
           {
             method: "POST",
             body: albumData,
@@ -142,13 +142,13 @@ const CreateAlbum = () => {
             //! to the FormData() -> API
             let songFileData = new FormData();
             songFileData.append("file", song.songThumbnail);
-            songFileData.append("upload_preset", "music_albums"); //? provide your upload preset name here
-            songFileData.append("cloud_name", "dcoajlkmk"); //? provide your cloud name here instead of dcoajlkmk
+            songFileData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET_ALBUMS);
+            songFileData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
 
             //! Upload song thumbnail to cloudinary
             //! Fetch -> API
             let response = await fetch(
-              "https://api.cloudinary.com/v1_1/dcoajlkmk/upload", //? Replace your cloud name here instead of dcoajlkmk
+              `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/upload`,
               {
                 method: "POST",
                 body: songFileData,
@@ -173,12 +173,12 @@ const CreateAlbum = () => {
             //! Add the song file data to FormData() -> API
             let songFileData = new FormData();
             songFileData.append("file", song.songFile);
-            songFileData.append("upload_preset", "music_albums"); //? provide your upload preset name here
-            songFileData.append("cloud_name", "dcoajlkmk"); //? provide your cloud name here instead of dcoajlkmk
+            songFileData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET_ALBUMS); //? provide your upload preset name here
+            songFileData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME); //? provide your cloud name here instead of dcoajlkmk
 
             //! Upload song file to the cloudinary
             let response = await fetch(
-              "https://api.cloudinary.com/v1_1/dcoajlkmk/upload", //? Replace your cloud name here instead of dcoajlkmk
+              `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/upload`, //? Replace your cloud name here instead of dcoajlkmk
               {
                 method: "POST",
                 body: songFileData,
@@ -229,7 +229,7 @@ const CreateAlbum = () => {
       };
 
       //! Step-3: Finally, we will upload all the data inside the database (Cloud Firestore)
-      
+
       let albumCollection = collection(__DB, "music_albums"); //? Replace music_albums with your atcual album collection name here
       await addDoc(albumCollection, payload);
 
@@ -542,7 +542,7 @@ const CreateAlbum = () => {
                     )}
                   </aside>
                   {/* //? Ending of Add Song Code */}
-                
+
 
                   {/* //? Starting of Remove Song Code */}
                   <aside className="flex px-8 mb-4">

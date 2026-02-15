@@ -14,19 +14,19 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDl5Lw1hUUUwtIOwF4w1ITR0bju70RDpic",
-  authDomain: "vibely-61968.firebaseapp.com",
-  projectId: "vibely-61968",
-  storageBucket: "vibely-61968.firebasestorage.app",
-  messagingSenderId: "6292807594",
-  appId: "1:6292807594:web:85caf8f1cec5e82a1015d3"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
 
-export let __AUTH=getAuth(firebaseApp);
-export let __DB= getFirestore(firebaseApp)
+export let __AUTH = getAuth(firebaseApp);
+export let __DB = getFirestore(firebaseApp)
 
 export default firebaseApp

@@ -31,11 +31,11 @@ const UploadProfilePhoto = () => {
 
       let fileData = new FormData();
       fileData.append("file", photoFile);
-      fileData.append("upload_preset", "profile_photo");
-      fileData.append("cloud_name", "dcoajlkmk");
+      fileData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET_PROFILE);
+      fileData.append("cloud_name", import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
 
       let response = await fetch(
-        "https://api.cloudinary.com/v1_1/dcoajlkmk/image/upload",
+        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
         {
           method: "POST",
           body: fileData,
